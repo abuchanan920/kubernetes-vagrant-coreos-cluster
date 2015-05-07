@@ -36,16 +36,9 @@ if [[ "$#" -eq 1 && "$1" == "install"  ]] ; then
   sudo wget -q --no-check-certificate -L -O ${targetDir}/kubectl "${KUB_URL}"
   [ -x ${targetDir}/kubectl ] || sudo chmod +x ${targetDir}/kubectl
 
-  # TODO use sed to replace current values, if any
-  echo "Setting environment variables.."
-  if ! grep -q 'export FLEETCTL_ENDPOINT=http://172.17.8.101:4001' ${homeDir}/.bash_profile ; then
-    echo "export FLEETCTL_ENDPOINT=http://172.17.8.101:4001" >> ${homeDir}/.bash_profile
-  fi
-  if ! grep -q 'export KUBERNETES_MASTER=http://172.17.8.101:8080' ${homeDir}/.bash_profile ; then
-    echo "export KUBERNETES_MASTER=http://172.17.8.101:8080" >> ${homeDir}/.bash_profile
-  fi
   export FLEETCTL_ENDPOINT=http://172.17.8.101:4001
   export KUBERNETES_MASTER=http://172.17.8.101:8080
+  export DOCKER_HOST=tcp://172.17.8.101:2375
 elif [[ "$#" -eq 1 && "$1" == "uninstall"  ]] ; then
   echo "Removing 'kubectl' v${KUBERNETES_VERSION}.."
   [ -f ${targetDir}/kubectl ] && sudo rm -f ${targetDir}/kubectl
