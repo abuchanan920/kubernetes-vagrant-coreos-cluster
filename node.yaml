@@ -71,7 +71,7 @@ coreos:
             Require=flanneld.service
             After=flanneld.service
             [Service]
-            Environment=DOCKER_OPTS='--registry-mirror=http://__MASTER_IP__:5000'
+            Environment='DOCKER_OPTS=--registry-mirror=http://__MASTER_IP__:5000  --insecure-registry 10.0.0.0/8 --insecure-registry 172.16.0.0/12 --insecure-registry 192.168.0.0/16'
             ExecStartPre=/opt/bin/wupiao __MASTER_IP__:5000
     - name: kube-proxy.service
       command: start
